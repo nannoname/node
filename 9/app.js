@@ -1,0 +1,40 @@
+const fs = require('fs');
+
+// асинхронное чтение
+fs.readFile('hello.txt', 'utf8', function (error, data) {
+    console.log('Асинхронное чтение файла');
+    if (error) throw error; // если возникла ошибка
+    console.log(data); // выводим считанные данные
+});
+
+// синхронное чтение
+console.log('Синхронное чтение файла');
+let fileContent = fs.readFileSync('hello.txt', 'utf8');
+console.log(fileContent);
+
+fs.writeFile('hello.txt', 'Hello!', function (error) {
+    if (error) throw error; // если возникла ошибка
+    console.log(
+        'Асинхронная запись файла завершена. Содержимое файла:'
+    );
+    let data = fs.readFileSync('hello.txt', 'utf8');
+    console.log(data); // выводим считанные данные
+});
+
+fs.appendFileSync('help.txt', 'Привет ми ми ми!');
+
+fs.appendFile('help.txt', 'Привет МИД!', function (error) {
+    if (error) throw error; // если возникла ошибка
+
+    console.log(
+        'Запись файла завершена. Содержимое файла:'
+    );
+    let data = fs.readFileSync('help.txt', 'utf8');
+    console.log(data); // выводим считанные данные
+});
+
+fs.unlink('del.txt', (err) => {
+    if (err) console.log(err);
+    // если возникла ошибка
+    else console.log('del.txt was deleted');
+});
